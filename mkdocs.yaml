@@ -1,0 +1,86 @@
+# Copyright 2026 Terradue
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+site_name: CWL Metadata Editor - Visual Studio Code Extension
+site_description: Edit Schema.org metadata inline while developing CWL workflows in Visual Studio Code.
+site_url: https://eoap.github.io/cwl-metadata-editor/
+repo_url: https://github.com/eoap/cwl-metadata-editor
+repo_name: eoap/cwl-metadata-editor
+
+theme:
+  logo: imgs/icon-eoap.png
+  name: readthedocs
+  features:
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Use dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Use light mode
+
+plugins:
+  - search
+  - mermaid2:
+      version: 11.4.1
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Tutorials:
+      - tutorials/index.md
+      - Edit metadata for your first CWL tool: tutorials/first-edit.md
+  - How-to guides:
+      - how-to-guides/index.md
+      - Edit existing metadata: how-to-guides/edit-existing-metadata.md
+      - Move from the online generator: how-to-guides/migrate-from-generator.md
+  - Reference:
+      - reference/index.md
+      - Command and editor behavior: reference/command.md
+      - Metadata fields: reference/metadata-fields.md
+  - Explanation:
+      - explanation/index.md
+      - A shorter metadata lifecycle: explanation/inline-lifecycle.md
+      - Relationship to Transpiler Mate: explanation/transpiler-mate.md
+
+copyright: <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue"" alt="Apache License, Version 2.0" /></a>

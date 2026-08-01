@@ -1,0 +1,71 @@
+{
+  "name": "cwl-metadata-editor",
+  "displayName": "CWL Metadata Editor",
+  "description": "Edit Schema.org metadata in the active CWL file through a structured form.",
+  "version": "0.1.0",
+  "publisher": "terradue",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eoap/cwl-metadata-editor.git"
+  },
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "CWL",
+    "Schema.org",
+    "metadata",
+    "CodeMeta",
+    "Earth Observation"
+  ],
+  "activationEvents": [
+    "onCommand:cwlMetadataEditor.open"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cwlMetadataEditor.open",
+        "title": "CWL: Edit Metadata",
+        "category": "CWL"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "cwlMetadataEditor.open",
+          "when": "resourceExtname == .cwl",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "cwlMetadataEditor.open",
+          "when": "resourceExtname == .cwl",
+          "group": "1_modification"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --max-warnings=0",
+    "check": "npm run compile && npm run lint && npm test",
+    "test": "node --test dist/test/*.test.js",
+    "package": "npm run check && vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.95.0",
+    "@vscode/vsce": "^3.2.1",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
+  }
+}
