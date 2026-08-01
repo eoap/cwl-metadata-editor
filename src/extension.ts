@@ -3,8 +3,9 @@ import * as path from 'node:path';
 import * as vscode from 'vscode';
 import { Metadata, parseMetadata, updateMetadata } from './metadata';
 
-function isCwl(document: any): boolean {
-  return Boolean(document && document.uri.scheme === 'file' && document.fileName.toLowerCase().endsWith('.cwl'));
+function isCwl(document: vscode.TextDocument): boolean {
+  return document.uri.scheme === 'file'
+    && document.fileName.toLowerCase().endsWith('.cwl');
 }
 
 function nonce(): string {
@@ -12,14 +13,14 @@ function nonce(): string {
   return Array.from({ length: 32 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join('');
 }
 
-function webviewHtml(template: string, webview: any): string {
+function webviewHtml(template: string, webview: vscode.Webview): string {
   const token = nonce();
   return template
     .replace('__CSP__', `default-src 'none'; img-src ${webview.cspSource} https: data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${token}'; connect-src https://api.ror.org https://pub.orcid.org;`)
     .replaceAll('__NONCE__', token);
 }
 
-async function openEditor(context: any): Promise<void> {
+async function openEditor(context: vscode.ExtensionContext): Promise<void> {
   const editor = vscode.window.activeTextEditor;
   if (!editor || !isCwl(editor.document)) {
     void vscode.window.showWarningMessage('Open a local .cwl file before starting the CWL Metadata Editor.');
@@ -96,7 +97,7 @@ async function openEditor(context: any): Promise<void> {
   });
 }
 
-export function activate(context: any): void {
+export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
     vscode.commands.registerCommand('cwlMetadataEditor.open', () => openEditor(context))
   );

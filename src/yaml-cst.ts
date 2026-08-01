@@ -107,7 +107,7 @@ export function parseEntry(entry: TopLevelEntry): Record<string, unknown> {
 
 function quote(value: unknown): string {
   const text = String(value);
-  if (text === '' || /^(?:null|true|false|~|-?\d+(?:\.\d+)?)$/.test(text) || /[:#\[\]{},&*!|>'"%@`]|^[-?]|\s$|^\s/.test(text)) return JSON.stringify(text);
+  if (text === '' || /^(?:null|true|false|~|-?\d+(?:\.\d+)?)$/.test(text) || /[:#[\]{},&*!|>'"%@`]|^[-?]|\s$|^\s/.test(text)) return JSON.stringify(text);
   return text;
 }
 
