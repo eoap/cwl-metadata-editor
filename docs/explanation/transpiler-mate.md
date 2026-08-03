@@ -25,8 +25,8 @@ The two projects occupy consecutive parts of the metadata lifecycle:
 
 ```mermaid
 flowchart LR
-    A[CWL Metadata Editor<br/>author in source] --> B[Annotated CWL]
-    B --> C[Transpiler Mate<br/>convert or publish]
+    A["CWL Metadata Editor<br/>author in source"] --> B[Annotated CWL]
+    B --> C["Transpiler Mate<br/>convert or publish"]
     C --> D[CodeMeta]
     C --> E[DataCite]
     C --> F[OGC API Record]
