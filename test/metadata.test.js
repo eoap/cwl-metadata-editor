@@ -2,6 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { parseMetadata, updateMetadata } = require('../dist/metadata');
+const { dumpYaml } = require('../dist/yaml-cst');
 
 test('extracts metadata with namespaced keys and ignores CWL structure', () => {
   const source = '$namespaces:\n  s: https://schema.org/\n\'@type\': s:SoftwareApplication\ns:name: Demo\ncwlVersion: v1.2\nclass: CommandLineTool\ninputs: {}\noutputs: {}\n';
@@ -35,4 +36,14 @@ test('removes interleaved metadata using CST ranges without reformatting CWL', (
   ].join('\n');
   const updated = updateMetadata(source, { 's:name': 'New' });
   assert.equal(updated, 's:name: New\n\ncwlVersion: v1.2\nclass: CommandLineTool\ninputs: { message: string } # inline comment\noutputs: {}\n');
+});
+
+test('quotes keys and values that begin with a YAML reserved character', () => {
+  const reserved = ['@', '{', '}', '[', ']', ':', '#', '&', '*', '!', '%', '|', '>', '?', '-', '<', '=', ',', '`'];
+  const value = Object.fromEntries(reserved.map((character, index) => [character + 'key', character + 'value-' + index]));
+  const output = dumpYaml(value);
+
+  reserved.forEach((character, index) => {
+    assert.ok(output.includes(`${JSON.stringify(character + 'key')}: ${JSON.stringify(character + 'value-' + index)}\n`));
+  });
 });

@@ -105,10 +105,17 @@ export function parseEntry(entry: TopLevelEntry): Record<string, unknown> {
   return (parseBlock(entry.text.split(/\r?\n/), 0, 0).value ?? {}) as Record<string, unknown>;
 }
 
+const yamlReservedInitials = new Set('@{}[]:#&*!%|>?-<=,`');
+
 function quote(value: unknown): string {
   const text = String(value);
-  if (text === '' || /^(?:null|true|false|~|-?\d+(?:\.\d+)?)$/.test(text) || /[:#[\]{},&*!|>'"%@`]|^[-?]|\s$|^\s/.test(text)) return JSON.stringify(text);
+  if (text === '' || yamlReservedInitials.has(text[0]) || /^(?:null|true|false|~|-?\d+(?:\.\d+)?)$/.test(text) || /[:#[\]{},&*!|>'"%@`]|\s$|^\s/.test(text)) return JSON.stringify(text);
   return text;
+}
+
+function quoteKey(key: string): string {
+  if (key === '' || yamlReservedInitials.has(key[0]) || /^\s|\s$/.test(key)) return JSON.stringify(key);
+  return key;
 }
 
 export function dumpYaml(value: unknown, indent = 0): string {
@@ -128,10 +135,11 @@ export function dumpYaml(value: unknown, indent = 0): string {
     const entries = Object.entries(value as Record<string, unknown>);
     if (!entries.length) return pad + '{}\n';
     return entries.map(([key, item]) => {
-      if (typeof item === 'string' && item.includes('\n')) return `${pad}${key}: |-\n${item.split('\n').map((line) => ' '.repeat(indent + 2) + line).join('\n')}\n`;
-      if (item && typeof item === 'object') return `${pad}${key}:\n${dumpYaml(item, indent + 2)}`;
-      if (item === null) return `${pad}${key}: null\n`;
-      return `${pad}${key}: ${typeof item === 'string' ? quote(item) : String(item)}\n`;
+      const renderedKey = quoteKey(key);
+      if (typeof item === 'string' && item.includes('\n')) return `${pad}${renderedKey}: |-\n${item.split('\n').map((line) => ' '.repeat(indent + 2) + line).join('\n')}\n`;
+      if (item && typeof item === 'object') return `${pad}${renderedKey}:\n${dumpYaml(item, indent + 2)}`;
+      if (item === null) return `${pad}${renderedKey}: null\n`;
+      return `${pad}${renderedKey}: ${typeof item === 'string' ? quote(item) : String(item)}\n`;
     }).join('');
   }
   return pad + quote(value) + '\n';
