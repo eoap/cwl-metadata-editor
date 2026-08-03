@@ -18,7 +18,8 @@ A VS Code extension for editing Schema.org metadata in the currently open `*.cwl
 code --install-extension cwl-metadata-editor.vsix
 ```
 
-Open a local `.cwl` document and run **CWL: Edit Metadata**.
+Open a local `.cwl` document and run **CWL: Edit Metadata**, or press
+`Ctrl+K Shift+M` (`⌘K Shift+M` on macOS).
 
 ## Development
 
