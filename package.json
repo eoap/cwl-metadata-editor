@@ -57,7 +57,7 @@
     "watch": "tsc -watch -p ./",
     "lint": "eslint src --max-warnings=0",
     "check": "npm run compile && npm run lint && npm test",
-    "test": "node --test dist/test/*.test.js",
+    "test": "node --test test/*.test.js",
     "package": "npm run check && vsce package"
   },
   "devDependencies": {
