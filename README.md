@@ -1,6 +1,8 @@
 # CWL Metadata Editor
 
-A VS Code extension for editing Schema.org metadata in the currently open `*.cwl` document.
+A Visual Studio Code extension for editing `Schema.org` metadata in the currently open `*.cwl` document.
+
+Read the [full documentation](https://eoap.github.io/cwl-metadata-editor/).
 
 ## Behavior
 
