@@ -34,6 +34,9 @@ Press `Ctrl+K Shift+M` (`⌘K Shift+M` on macOS) or open the Command Palette and
 
 The form opens beside `hello.cwl`. Because the file has no supported metadata yet, its fields are initially empty.
 
+![Open the metadata editor](../imgs/01.png "Open the metadata editor")
+
+
 ## 3. Describe the software
 
 Enter the following values in **Software**:
@@ -88,6 +91,8 @@ outputs: {}
 The complete block will also contain the license, help, publisher, author, and keyword values you supplied.
 
 Save the file and inspect its source-control diff as you would for any code change. You have now added metadata without moving generated YAML between a browser and your source tree.
+
+![Review the result](../imgs/02.png "Review the result")
 
 ## Next steps
 
