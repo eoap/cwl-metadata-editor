@@ -47,3 +47,62 @@ test('quotes keys and values that begin with a YAML reserved character', () => {
     assert.ok(output.includes(`${JSON.stringify(character + 'key')}: ${JSON.stringify(character + 'value-' + index)}\n`));
   });
 });
+
+test('parses people and mixed keyword metadata without losing nested fields', () => {
+  const source = [
+    's:author:',
+    '  - \'@type\': s:Person',
+    '    s:givenName: Ada',
+    '    s:familyName: Lovelace',
+    '    s:email: ada@example.org',
+    '    s:affiliation:',
+    '      \'@type\': s:Organization',
+    '      s:name: Analytical Engine Society',
+    's:contributor:',
+    '  - class: s:Role',
+    '    s:roleName: Custom role',
+    '    s:contributor:',
+    '      class: s:Person',
+    '      s:givenName: Grace',
+    '      s:familyName: Hopper',
+    's:keywords:',
+    '  - CWL',
+    '  - \'@type\': s:DefinedTerm',
+    '    s:name: Atmospheric temperature',
+    '    s:termCode: example-concept-id',
+    '    s:inDefinedTermSet: https://example.org/terms',
+    'cwlVersion: v1.2',
+    'class: Workflow',
+    ''
+  ].join('\n');
+
+  const metadata = parseMetadata(source);
+  assert.deepEqual(metadata['s:author'], [{
+    '@type': 's:Person',
+    's:givenName': 'Ada',
+    's:familyName': 'Lovelace',
+    's:email': 'ada@example.org',
+    's:affiliation': {
+      '@type': 's:Organization',
+      's:name': 'Analytical Engine Society'
+    }
+  }]);
+  assert.deepEqual(metadata['s:contributor'], [{
+    class: 's:Role',
+    's:roleName': 'Custom role',
+    's:contributor': {
+      class: 's:Person',
+      's:givenName': 'Grace',
+      's:familyName': 'Hopper'
+    }
+  }]);
+  assert.deepEqual(metadata['s:keywords'], [
+    'CWL',
+    {
+      '@type': 's:DefinedTerm',
+      's:name': 'Atmospheric temperature',
+      's:termCode': 'example-concept-id',
+      's:inDefinedTermSet': 'https://example.org/terms'
+    }
+  ]);
+});

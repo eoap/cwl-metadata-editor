@@ -23019,9 +23019,6 @@
         if (type === "licenses") {
           syncLicenseEntry(entry);
         }
-        if (type === "authors" || type === "contributors") {
-          syncCreditRoleEntry(entry);
-        }
         if (type === "terms") {
           var scienceKeyword = scienceKeywordById[getPath(data || {}, "termCode")];
           if (scienceKeyword) {
@@ -23077,6 +23074,13 @@
           option.textContent = role.name;
           fragment.appendChild(option);
         });
+
+        if (selectedValue && !creditRoleByName[selectedValue]) {
+          var documentOption = document.createElement("option");
+          documentOption.value = selectedValue;
+          documentOption.textContent = selectedValue + " (from document)";
+          fragment.appendChild(documentOption);
+        }
 
         select.innerHTML = "";
         select.appendChild(fragment);
@@ -23914,8 +23918,10 @@
       function scalarValue(value) { return value == null ? "" : String(value); }
       function unwrapPerson(value, nestedProperty) {
         if (!value || typeof value !== "object") return {};
-        var role = value["@type"] === "s:Role" ? value : null;
-        var personValue = role ? (role["s:" + nestedProperty] || {}) : value;
+        var type = value["@type"] || value.class;
+        var role = type === "s:Role" ? value : null;
+        var nestedPerson = role ? (role["s:" + nestedProperty] || {}) : value;
+        var personValue = Array.isArray(nestedPerson) ? (nestedPerson[0] || {}) : nestedPerson;
         var affiliation = personValue["s:affiliation"] || {};
         return {
           role: {
@@ -23979,7 +23985,7 @@
         }));
 
         hostLoaded = true;
-        render();
+        formattedFieldsAreValid();
       }
 
       window.addEventListener("message", function (event) {

@@ -22,3 +22,19 @@ test('does not emit metadata while a formatted field is invalid', () => {
   assert.match(editorHtml, /field\.checkValidity\(\)/);
   assert.match(editorHtml, /field\.setAttribute\("aria-invalid", "true"\)/);
 });
+
+test('hydrates metadata without immediately writing it back', () => {
+  assert.match(
+    editorHtml,
+    /hostLoaded = true;\s+formattedFieldsAreValid\(\);\s+}/
+  );
+  assert.doesNotMatch(
+    editorHtml,
+    /hostLoaded = true;\s+render\(\);/
+  );
+});
+
+test('retains role names loaded from outside the bundled CRediT list', () => {
+  assert.match(editorHtml, /selectedValue && !creditRoleByName\[selectedValue\]/);
+  assert.match(editorHtml, /selectedValue \+ " \(from document\)"/);
+});
