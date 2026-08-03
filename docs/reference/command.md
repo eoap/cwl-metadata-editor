@@ -8,9 +8,11 @@
 | Command ID | `cwlMetadataEditor.open` |
 | Activation | Running the command |
 | Available for | A local file whose name ends in `.cwl` |
+| Keyboard shortcut | `Ctrl+K Shift+M` (`⌘K Shift+M` on macOS) |
 | Opens in | A webview panel beside the active editor |
 
 The command is available from the Command Palette, the editor title, and the editor context menu for `.cwl` resources.
+The keyboard shortcut is active only while a local `.cwl` text editor has focus.
 
 If there is no active local `.cwl` editor, the command shows a warning and does not open the form.
 

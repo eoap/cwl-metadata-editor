@@ -35,6 +35,14 @@
         "category": "CWL"
       }
     ],
+    "keybindings": [
+      {
+        "command": "cwlMetadataEditor.open",
+        "key": "ctrl+k shift+m",
+        "mac": "cmd+k shift+m",
+        "when": "editorTextFocus && resourceScheme == file && resourceExtname == .cwl"
+      }
+    ],
     "menus": {
       "editor/title": [
         {

@@ -30,7 +30,7 @@ Keep `hello.cwl` active in the editor.
 
 ## 2. Open the metadata editor
 
-Open the Command Palette and run **CWL: Edit Metadata**. You can also use the command from the editor title or the `.cwl` file's editor context menu.
+Press `Ctrl+K Shift+M` (`⌘K Shift+M` on macOS) or open the Command Palette and run **CWL: Edit Metadata**. You can also use the command from the editor title or the `.cwl` file's editor context menu.
 
 The form opens beside `hello.cwl`. Because the file has no supported metadata yet, its fields are initially empty.
 
