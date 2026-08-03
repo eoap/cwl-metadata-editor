@@ -2,6 +2,7 @@
   "name": "cwl-metadata-editor",
   "displayName": "CWL Metadata Editor",
   "description": "Edit Schema.org metadata in the active CWL file through a structured form.",
+  "icon": "media/icon.png",
   "version": "0.1.0",
   "publisher": "terradue",
   "license": "Apache-2.0",

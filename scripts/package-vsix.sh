@@ -11,6 +11,7 @@ cat > "$STAGE/[Content_Types].xml" <<'XML'
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
   <Default Extension="json" ContentType="application/json"/><Default Extension="js" ContentType="application/javascript"/>
   <Default Extension="map" ContentType="application/json"/><Default Extension="html" ContentType="text/html"/>
+  <Default Extension="png" ContentType="image/png"/>
   <Default Extension="md" ContentType="text/markdown"/><Default Extension="txt" ContentType="text/plain"/>
   <Default Extension="vsixmanifest" ContentType="text/xml"/>
 </Types>
@@ -24,6 +25,7 @@ cat > "$STAGE/extension.vsixmanifest" <<'XML'
     <Properties><Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.100.0"/></Properties></Metadata>
   <Installation><InstallationTarget Id="Microsoft.VisualStudio.Code" Version="[1.100.0,)"/></Installation><Dependencies/>
   <Assets><Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true"/>
+    <Asset Type="Microsoft.VisualStudio.Services.Icons.Default" Path="extension/media/icon.png" Addressable="true"/>
     <Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true"/>
     <Asset Type="Microsoft.VisualStudio.Services.Content.License" Path="extension/LICENSE" Addressable="true"/></Assets>
 </PackageManifest>
