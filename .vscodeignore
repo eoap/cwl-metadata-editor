@@ -4,5 +4,6 @@ test/**
 scripts/**
 tsconfig.json
 node_modules/**
+package-lock.json
 *.zip
 *.vsix

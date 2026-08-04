@@ -11,7 +11,7 @@
     "url": "https://github.com/eoap/cwl-metadata-editor.git"
   },
   "engines": {
-    "vscode": "^1.100.0"
+    "vscode": "^1.125.0"
   },
   "categories": [
     "Other",
@@ -70,11 +70,12 @@
     "package": "npm run check && vsce package"
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
-    "@types/vscode": "^1.95.0",
-    "@vscode/vsce": "^3.2.1",
-    "eslint": "^9.16.0",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.18.0"
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
+    "@types/vscode": "^1.125.0",
+    "@vscode/vsce": "^3.9.2",
+    "eslint": "^10.8.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.66.0"
   }
 }
